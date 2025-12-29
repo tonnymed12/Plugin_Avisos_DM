@@ -1,0 +1,15 @@
+{
+	"components": [
+		{
+			"id": "zpluginaviso",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "serviacero.custom.plugins.zpluginaviso",
+			"propertyEditor": "serviacero.custom.plugins.zpluginaviso.builder.PropertyEditor",
+			"i18n": "serviacero.custom.plugins.zpluginaviso.i18n.i18n",
+            "productionProcessEnabled": true,
+           "productionProcessTitle": "zpluginaviso",
+			"supportedPodTypes": ["OPERATION","WORK_CENTER","ORDER"]
+		}   
+	]
+}

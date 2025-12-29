@@ -1,0 +1,50 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="serviacero.custom.plugins.zpluginaviso.controller.MainView" width="100%" height="100%">
+		
+        <Panel 
+                id="panelPlugin"  
+                width="100%"
+                height="100%"
+                expandable="false"
+                expanded="false"
+                accessibleRole="Region"
+                backgroundDesign="Transparent"
+                class="sapUiNoContentPadding">  
+
+            <content>
+      <VBox class="sapUiSmallMargin" width="100%">
+        <Text id="textPlugin" text="Aviso de Averia Mantenimiento" class="textFontSize" textAlign="Center" width="100%"/>
+        <Label text="Título (máx. 40)" required="true" labelFor="inpTitulo"/>
+        <Input
+          id="inpTitulo"
+          placeholder="Ingrese el título que resuma el problema"
+          maxLength="40"
+          width="50%"
+          liveChange=".onLiveChange"
+          valueState="None"
+          valueStateText="Este campo es obligatorio (máx. 40 caracteres)."/>
+
+        <Label text="Descripción (máx. 200)" required="true" labelFor="txtDescripcion" class="sapUiSmallMarginTop"/>
+        <TextArea
+          id="txtDescripcion"
+          placeholder="Describe de forma detallada la avería"
+          maxLength="200"
+          growing="true"
+          width="400px"
+          height="200px"
+          growingMaxLines="6"
+          liveChange=".onLiveChange"
+          valueState="None"
+          value="Describa el problema:&#10;&#10;¿Cuándo empezó el problema?&#10;&#10;¿Qué hizo después de identificar el problema?"
+          valueStateText="Este campo es obligatorio (máx. 200 caracteres)."/>
+
+        <Button
+          text="Generar aviso de Mantenimiento"
+          type="Emphasized"
+          class="sapUiSmallMarginTop"
+          press=".onEnviar"/>
+      </VBox>
+    </content>
+	    </Panel>		
+        
+  
+</mvc:View>
