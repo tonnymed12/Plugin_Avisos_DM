@@ -10,9 +10,15 @@
                 backgroundDesign="Transparent"
                 class="sapUiNoContentPadding">  
 
+        <headerToolbar>
+            <OverflowToolbar>
+                <Title text="Aviso de Averia Mantenimiento"/>
+                <ToolbarSpacer/>
+            </OverflowToolbar>
+        </headerToolbar>
+
             <content>
       <VBox class="sapUiSmallMargin" width="100%">
-        <Text id="textPlugin" text="Aviso de Averia Mantenimiento" class="textFontSize" textAlign="Center" width="100%"/>
         <Label text="Título (máx. 40)" required="true" labelFor="inpTitulo"/>
         <Input
           id="inpTitulo"
@@ -22,6 +28,23 @@
           liveChange=".onLiveChange"
           valueState="None"
           valueStateText="Este campo es obligatorio (máx. 40 caracteres)."/>
+
+        <Label text="Prioridad" required="true" labelFor="cbPrioridad" class="sapUiSmallMarginTop"/>
+
+        <ComboBox
+            id="cbPrioridad"
+            placeholder="Seleccione prioridad"
+            selectedKey="1"
+            selectionChange=".onSelectionChange"
+            valueState="None"
+            valueStateText="La prioridad es obligatoria.">
+            <items>
+                <core:Item key="1" text="1: Alta"/>
+                <core:Item key="2" text="2: Media"/>
+                <core:Item key="3" text="3: Baja"/>
+            </items>
+        </ComboBox>
+
 
         <Label text="Descripción (máx. 200)" required="true" labelFor="txtDescripcion" class="sapUiSmallMarginTop"/>
         <TextArea

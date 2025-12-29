@@ -24,6 +24,8 @@ sap.ui.define([
 						
 			this.addInputField(oPropertyFormContainer, "title", oData);
 			this.addInputField(oPropertyFormContainer, "text", oData);
+			this.addInputField(oPropertyFormContainer, "ProductionProcessID", oData);
+
 
             oFormContainer = oPropertyFormContainer;
 		},
@@ -34,7 +36,8 @@ sap.ui.define([
 				"backButtonVisible": true,
 				"closeButtonVisible": true,
                 "title": "zpluginaviso",
-				"text": "zpluginaviso"
+				"text": "zpluginaviso",
+				"ProductionProcessID" : "REG_8012b174-832a-43c2-ba49-43a81d1e1ced"
                 
 			};
 		}

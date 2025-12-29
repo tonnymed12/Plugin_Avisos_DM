@@ -9,7 +9,7 @@
 			"i18n": "serviacero.custom.plugins.zpluginaviso.i18n.i18n",
             "productionProcessEnabled": true,
            "productionProcessTitle": "zpluginaviso",
-			"supportedPodTypes": ["OPERATION","WORK_CENTER","ORDER"]
+			"supportedPodTypes": ["OPERATION","WORK_CENTER","ORDER","OTHER","MONITOR"]
 		}   
 	]
 }
