@@ -97,8 +97,10 @@ sap.ui.define([
     },
 
     onEnviar: async function () {
+
+
       const planta = this.getPodController().getUserPlant();
-      const url = this.getPublicApiRestDataSourceUri() + "/pe/api/v1/process/processDefinitions/start?key=" + this.getConfiguration().ProductionProcessDesignRegID + "&async=false";
+      let url = this.getPublicApiRestDataSourceUri() + "/pe/api/v1/process/processDefinitions/start?key=REG_d8529216-3221-4680-8861-b40b66bfe1fa" + "&async=false";
             
       url = url; 
 
@@ -124,43 +126,45 @@ sap.ui.define([
       }
 
       const payload = {
-        titulo: sTitulo,
-        prioridad: sPrioridadKey,     // NUEVO: "1" | "2" | "3"
-        descripcion: sDesc
+        inPlant : planta,
+        inClaseAviso : "M2",
+        inTitulo : sTitulo,
+        inPrioridad : sPrioridadKey,     // NUEVO: "1" | "2" | "3"
+        inNotificationText : sDesc,
+        inUser : "SAPDM",
+        inWorkCenter : this.getPodSelectionModel().selectedPhaseWorkCenter
       };
 
-      const srvUrl = "/api/aviso-averia";
+      let that = this;
+            this.ajaxPostRequest(url, payload,
+                function (oResponseData) {
 
-      try {
-        this.getView().setBusy(true);
+                    let oView = that.getView(); 
 
-        const res = await fetch(srvUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
+                    console.log(oResponseData);
 
-        if (!res.ok) {
-          const sTxt = await res.text().catch(() => "");
-          throw new Error(`Error HTTP ${res.status}. ${sTxt}`);
-        }
-
-        MessageToast.show("Aviso enviado correctamente.");
+        let sMessage = "Se generó aviso de Avería SAP PM Nro. " + oResponseData.outAVISO
+                    
+        sap.m.MessageToast.show(sMessage);
 
         // Limpiar
         oInput.setValue("");
-        oCbPrioridad.setSelectedKey(""); // NUEVO
-        oTextArea.setValue("");
+        oCbPrioridad.setSelectedKey("1"); // NUEVO
+
+        let sTemplate = "Describa el problema:\n\n¿Cuándo empezó el problema?\n\n¿Qué hizo después de identificar el problema?\n\n"
+        oTextArea.setValue(sTemplate);
 
         oInput.setValueState("None");
         oCbPrioridad.setValueState("None"); // NUEVO
         oTextArea.setValueState("None");
 
-      } catch (e) {
-        MessageBox.error("No se pudo enviar el aviso.\n" + (e.message || e));
-      } finally {
-        this.getView().setBusy(false);
-      }
+                },
+                function (oError, sHttpErrorMessage) {
+                    var err = oError || sHttpErrorMessage;
+                    MessageToast.show(err);
+                }
+            );
+
     },
 
     _setRequiredState: function (oControl, bOk) {

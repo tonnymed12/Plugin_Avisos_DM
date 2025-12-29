@@ -37,8 +37,7 @@ sap.ui.define([
 				"closeButtonVisible": true,
                 "title": "zpluginaviso",
 				"text": "zpluginaviso",
-				"ProductionProcessID" : "REG_8012b174-832a-43c2-ba49-43a81d1e1ced"
-                
+				"ProductionProcessID" : "REG_8012b174-832a-43c2-ba49-43a81d1e1ced"      
 			};
 		}
 
