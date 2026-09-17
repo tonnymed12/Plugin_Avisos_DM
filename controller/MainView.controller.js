@@ -357,11 +357,11 @@ sap.ui.define(
             .replace(/^\.\.\//, "/");
         },
 
-        _i18n: function (sKey) {
+        _i18n: function (sKey, aArgs) {
           return this.getView()
             .getModel("i18n")
             .getResourceBundle()
-            .getText(sKey);
+            .getText(sKey, aArgs);
         },
 
         onLiveChange: function (oEvent) {
@@ -407,9 +407,7 @@ sap.ui.define(
             this._setLengthState(oTextArea, sDesc, 200);
 
           if (!bTituloOk || !bPrioridadOk || !bDescOk || !bLenOk) {
-            MessageBox.error(
-              "Completa los campos obligatorios respetando los máximos.",
-            );
+            MessageBox.error(this._i18n("mensajeCamposObligatorios"));
             return;
           }
 
@@ -434,9 +432,9 @@ sap.ui.define(
 
               console.log(oResponseData);
 
-              let sMessage =
-                "Se generó aviso de Avería SAP PM Nro. " +
-                oResponseData.outAVISO;
+              let sMessage = that._i18n("mensajeAvisoGenerado", [
+                oResponseData.outAVISO,
+              ]);
 
               sap.m.MessageToast.show(sMessage);
 
@@ -444,8 +442,7 @@ sap.ui.define(
               oInput.setValue("");
               oCbPrioridad.setSelectedKey("1"); // NUEVO
 
-              let sTemplate =
-                "Describa el problema:\n\n¿Cuándo empezó el problema?\n\n¿Qué hizo después de identificar el problema?\n\n";
+              let sTemplate = that._i18n("placeHolderPlano");
               oTextArea.setValue(sTemplate);
 
               oInput.setValueState("None");
@@ -468,7 +465,9 @@ sap.ui.define(
           const bOk = sValue.length <= iMax;
           oControl.setValueState(bOk ? oControl.getValueState() : "Error");
           if (!bOk) {
-            oControl.setValueStateText(`Máximo ${iMax} caracteres.`);
+            oControl.setValueStateText(
+              this._i18n("mensajeMaximoCaracteres", [iMax]),
+            );
           }
           return bOk;
         },

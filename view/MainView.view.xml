@@ -12,46 +12,46 @@
 
         <headerToolbar>
             <OverflowToolbar>
-                <Title text="Aviso de Averia Mantenimiento"/>
+                <Title text="{i18n>tituloPlugin}"/>
                 <ToolbarSpacer/>
             </OverflowToolbar>
         </headerToolbar>
 
             <content>
       <VBox class="sapUiSmallMargin" width="100%">
-        <Label text="Título (máx. 40)" required="true" labelFor="inpTitulo"/>
+        <Label text="{i18n>labelTitulo}" required="true" labelFor="inpTitulo"/>
         <Input
           id="inpTitulo"
-          placeholder="Seleccione el Aviso de Mantenimiento"
+          placeholder="{i18n>placeholderTitulo}"
           maxLength="40"
           width="50%"
           liveChange=".onLiveChange"
           showValueHelp="true"
           valueHelpRequest=".onValueHelpTitulo"
           valueState="None"
-          valueStateText="Este campo es obligatorio (máx. 40 caracteres)."/>
+          valueStateText="{i18n>valueStateTextTitulo}"/>
 
-        <Label text="Prioridad" required="true" labelFor="cbPrioridad" class="sapUiSmallMarginTop"/>
+        <Label text="{i18n>labelPrioridad}" required="true" labelFor="cbPrioridad" class="sapUiSmallMarginTop"/>
 
         <ComboBox
             id="cbPrioridad"
-            placeholder="Seleccione prioridad"
+            placeholder="{i18n>placeholderPrioridad}"
             selectedKey="1"
             selectionChange=".onSelectionChange"
             valueState="None"
-            valueStateText="La prioridad es obligatoria.">
+            valueStateText="{i18n>valueStateTextPrioridad}">
             <items>
-                <core:Item key="1" text="1: Alta"/>
-                <core:Item key="2" text="2: Media"/>
-                <core:Item key="3" text="3: Baja"/>
+                <core:Item key="1" text="{i18n>prioridadAlta}"/>
+                <core:Item key="2" text="{i18n>prioridadMedia}"/>
+                <core:Item key="3" text="{i18n>prioridadBaja}"/>
             </items>
         </ComboBox>
 
 
-        <Label text="Descripción (máx. 200)" required="true" labelFor="txtDescripcion" class="sapUiSmallMarginTop"/>
+        <Label text="{i18n>labelDescripcion}" required="true" labelFor="txtDescripcion" class="sapUiSmallMarginTop"/>
         <TextArea
           id="txtDescripcion"
-          placeholder="Describe de forma detallada la avería"
+          placeholder="{i18n>placeHolderPlano}"
           maxLength="200"
           growing="true"
           width="400px"
@@ -59,11 +59,11 @@
           growingMaxLines="6"
           liveChange=".onLiveChange"
           valueState="None"
-          value="Describa el problema:&#10;&#10;¿Cuándo empezó el problema?&#10;&#10;¿Qué hizo después de identificar el problema?"
-          valueStateText="Este campo es obligatorio (máx. 200 caracteres)."/>
+          value=""
+          valueStateText="{i18n>valueStateTextDescripcion}"/>
 
         <Button
-          text="Generar aviso de Mantenimiento"
+          text="{i18n>buttonGenerarAviso}"
           type="Emphasized"
           class="sapUiSmallMarginTop"
           press=".onEnviar"/>
