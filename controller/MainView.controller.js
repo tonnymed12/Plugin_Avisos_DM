@@ -24,8 +24,8 @@ sap.ui.define(
     // Bloque raíz "Maintenance (PM)" y sub-bloque "Reactive Maintenance (PM_030)" al que se filtra la selección
     const REASON_CODE_ROOT = "PM";
     const REASON_CODE_BLOCK = "PM_030";
-    // Asunción: un aviso de avería corresponde a mantenimiento reactivo/no programado
-    const REASON_CODE_TIME_ELEMENT = "UNSCHEDULED_DOWN";
+    // Código maestro real del TimeElementBO para downtime no programado (ver zpluginGestionParos008: "UNSCHEDULED_DOWN" no existe, es "UNSCHEDULE_DOWN")
+    const REASON_CODE_TIME_ELEMENT = "UNSCHEDULE_DOWN";
 
     return PluginViewController.extend(
       "serviacero.custom.plugins.zpluginaviso.controller.MainView",
@@ -36,6 +36,7 @@ sap.ui.define(
           this._oSelectedAviso = null;
           this._aFullAvisoTree = [];
           this._aAllAvisoReasonCodes = [];
+          this._oDialogSeleccionarAviso = null;
         },
 
         onAfterRendering: function () {
@@ -97,10 +98,9 @@ sap.ui.define(
         _abrirDialogoAviso: function () {
           var oView = this.getView();
           var oThis = this;
-          var oDialog = this.byId("dialogSeleccionarAviso");
 
-          if (oDialog) {
-            oDialog.open();
+          if (this._oDialogSeleccionarAviso) {
+            this._oDialogSeleccionarAviso.open();
             this._cargarReasonCodesAviso();
             return;
           }
@@ -110,6 +110,7 @@ sap.ui.define(
             controller: this,
           })
             .then(function (oLoadedDialog) {
+              oThis._oDialogSeleccionarAviso = oLoadedDialog;
               oView.addDependent(oLoadedDialog);
               oLoadedDialog.open();
               oThis._cargarReasonCodesAviso();
@@ -124,16 +125,16 @@ sap.ui.define(
         },
 
         onAfterCloseSeleccionAviso: function () {
-          var oDialog = this.byId("dialogSeleccionarAviso");
-          if (oDialog) {
-            oDialog.destroy();
+          if (this._oDialogSeleccionarAviso) {
+            this._oDialogSeleccionarAviso.destroy();
+            this._oDialogSeleccionarAviso = null;
           }
         },
 
         _cargarReasonCodesAviso: function () {
           var plant = this.getPodController().getUserPlant();
           var oThis = this;
-          var oDialog = this.byId("dialogSeleccionarAviso");
+          var oDialog = this._oDialogSeleccionarAviso;
 
           var sUrl =
             this._buildBaseDmeUrl() +
@@ -337,18 +338,16 @@ sap.ui.define(
 
           this._oSelectedAviso = null;
 
-          var oDialog = this.byId("dialogSeleccionarAviso");
-          if (oDialog) {
-            oDialog.close();
+          if (this._oDialogSeleccionarAviso) {
+            this._oDialogSeleccionarAviso.close();
           }
         },
 
         onCancelSeleccionAviso: function () {
           this._oSelectedAviso = null;
 
-          var oDialog = this.byId("dialogSeleccionarAviso");
-          if (oDialog) {
-            oDialog.close();
+          if (this._oDialogSeleccionarAviso) {
+            this._oDialogSeleccionarAviso.close();
           }
         },
 
@@ -383,7 +382,7 @@ sap.ui.define(
             this.getPodSelectionModel().selectedPhaseWorkCenter;
           let url =
             this.getPublicApiRestDataSourceUri() +
-            "/pe/api/v1/process/processDefinitions/start?key=REG_d8529216-3221-4680-8861-b40b66bfe1fa" +
+            "/pe/api/v1/process/processDefinitions/start?key=REG_62836cd5-a067-43ed-9618-5fb67065ec08" +
             "&async=false";
 
           url = url;
@@ -416,12 +415,14 @@ sap.ui.define(
 
           const payload = {
             inPlant: planta,
-            inClaseAviso: "M2",
+            inClaseAviso: "Y1",
             inTitulo: sTitulo,
             inPrioridad: sPrioridadKey, // NUEVO: "1" | "2" | "3"
             inNotificationText: sDesc,
-            inUser: "SAPDM",
-            inWorkCenter: sWorkcenter,
+            inUser: "SAPDM_Manual",
+            inWorkcenter: sWorkcenter,
+            inAvisoManual: "AVISO_MANUAL",
+            inClaseObjTec: "EAMS_EQUI",
           };
 
           let that = this;
