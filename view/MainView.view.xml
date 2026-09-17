@@ -22,10 +22,12 @@
         <Label text="Título (máx. 40)" required="true" labelFor="inpTitulo"/>
         <Input
           id="inpTitulo"
-          placeholder="Ingrese el título que resuma el problema"
+          placeholder="Seleccione el Aviso de Mantenimiento"
           maxLength="40"
           width="50%"
           liveChange=".onLiveChange"
+          showValueHelp="true"
+          valueHelpRequest=".onValueHelpTitulo"
           valueState="None"
           valueStateText="Este campo es obligatorio (máx. 40 caracteres)."/>
 

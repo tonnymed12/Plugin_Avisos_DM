@@ -1,0 +1,56 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="dialogSeleccionarAviso"
+        title="{i18n>titleDialogAviso}"
+        contentWidth="600px"
+        contentHeight="500px"
+        resizable="true"
+        draggable="true"
+        afterClose="onAfterCloseSeleccionAviso"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <SearchField
+                    id="searchAviso"
+                    placeholder="{i18n>placeholderSearchAviso}"
+                    liveChange="onSearchAviso"
+                    width="100%"
+                    class="sapUiSmallMarginBottom"
+                />
+
+                <Tree
+                    id="treeAviso"
+                    items="{
+                        path: 'rcAvisoModel>/items',
+                        parameters: { arrayNames: ['children'] }
+                    }"
+                    mode="SingleSelectLeft"
+                    selectionChange="onSelectAviso"
+                    width="100%"
+                >
+                    <StandardTreeItem
+                        title="{rcAvisoModel>description}"
+                    />
+                </Tree>
+            </VBox>
+        </content>
+
+        <beginButton>
+            <Button
+                text="{i18n>buttonConfirmar}"
+                type="Emphasized"
+                press="onConfirmSeleccionAviso"
+            />
+        </beginButton>
+
+        <endButton>
+            <Button
+                text="{i18n>buttonCancelar}"
+                press="onCancelSeleccionAviso"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
